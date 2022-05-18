@@ -27,6 +27,13 @@ async function run() {
       const result = await taskCollection.insertOne(task)
       return res.send({ success: true, result })
     })
+
+    app.get('/task', async (req, res) => {
+      const email = req.query.email
+      const query = { email: email }
+      const tasks = await taskCollection.find(query).toArray()
+      res.send(tasks)
+    })
   } finally {
     // await client.close()
   }
